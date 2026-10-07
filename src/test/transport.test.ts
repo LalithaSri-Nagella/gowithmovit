@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, type Bus } from '@/lib/transport';
+import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, locations, type Bus } from '@/lib/transport';
 const base = initialBuses[0];
 if (!base) throw new Error('Demo bus fixture is required');
 describe('MOVIT transport rules', () => {
@@ -47,5 +47,10 @@ describe('MOVIT transport rules', () => {
  });
  it('penalizes route changes when arrival conditions are equal', () => {
   expect(recommend([{...base,id:'changed',route:'Route changed'},{...base,id:'normal'}])?.id).toBe('normal');
+  });
+ it('offers Pileru and Chandragiri as journey stops', () => {
+  expect(locations).toContain('Pileru');
+  expect(locations).toContain('Chandragiri');
+  expect(new Set(locations).size).toBe(locations.length);
  });
 });
