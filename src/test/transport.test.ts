@@ -54,4 +54,12 @@ describe('MOVIT transport rules', () => {
   expect(locations).toContain('Rangampeta');
   expect(new Set(locations).size).toBe(locations.length);
  });
+ it('honours a Rangampeta journey carried in the address bar', () => {
+  expect(journeyFromSearch({ from: 'Rangampeta', to: 'Tirupati' })).toEqual({ from: 'Rangampeta', to: 'Tirupati' });
+ });
+ it('ignores journey params that are unknown, missing or identical', () => {
+  expect(journeyFromSearch({ from: 'Nowhere', to: 'Tirupati' })).toBeNull();
+  expect(journeyFromSearch({ from: 'Rangampeta' })).toBeNull();
+  expect(journeyFromSearch({ from: 'Rangampeta', to: 'Rangampeta' })).toBeNull();
+ });
 });
