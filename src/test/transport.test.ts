@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, type Bus } from '@/lib/transport';
 const base = initialBuses[0];
+if (!base) throw new Error('Demo bus fixture is required');
 describe('MOVIT transport rules', () => {
  it('includes arrivals from 0 through 60 minutes only and sorts earliest first', () => {
   const buses: Bus[] = [61,60,-1,0,7].map(eta=>({...base, id:String(eta),eta}));
