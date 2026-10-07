@@ -1,4 +1,4 @@
-export const locations = ['Tirupati', 'Chittoor', 'Renigunta', 'Chandragiri', 'Pileru'] as const;
+export const locations = ['Tirupati', 'Chittoor', 'Renigunta', 'Chandragiri', 'Pileru', 'Rangampeta'] as const;
 export type Crowd = 'Low' | 'Medium' | 'High';
 export type Bus = { id: string; registration: string; service: string; operator: 'Government' | 'Private'; pass: boolean; eta: number; delay: number; crowd: Crowd; route: 'Normal' | 'Route changed'; breakdown: boolean; updatedAt: number; reported: boolean; comment?: string };
 export const initialBuses: Bus[] = [
