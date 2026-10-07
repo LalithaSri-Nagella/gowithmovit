@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, locations, type Bus } from '@/lib/transport';
+import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, locations, journeyFromSearch, type Bus } from '@/lib/transport';
 const base = initialBuses[0];
 if (!base) throw new Error('Demo bus fixture is required');
 describe('MOVIT transport rules', () => {
