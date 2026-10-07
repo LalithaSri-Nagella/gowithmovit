@@ -1,24 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight, BusFront, Radio, MessageSquare, ShieldCheck } from 'lucide-react';
+import journeyImage from '@/assets/movit-journey.jpg';
+import { JourneySearch } from '@/components/journey-search';
+import { DemoNotice } from '@/components/movit-shell';
+import { Button } from '@/components/ui/button';
+import { pageHead } from '@/lib/page-head';
+export const Route = createFileRoute('/')({ head: () => pageHead('Move smarter. Wait less.', 'Find your best bus with MOVIT. Compare simulated Andhra Pradesh bus arrivals, crowding and passenger reports.'), component: Index });
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+ return <><section className="hero"><img className="hero-image" src={journeyImage} alt="An intercity bus travelling through the hills of Andhra Pradesh" width={1536} height={1024}/><div className="hero-inner"><div className="eyebrow"><span className="status-dot positive"/>YOUR JOURNEY. A BETTER WAY.</div><h1>MOVIT<span>.</span></h1><p className="hero-tagline">Move smarter.<br/>Wait less.</p><p className="hero-description">The right bus. Not just the next bus.<br/>A clearer picture of your journey, before you go.</p><div className="hero-bottom"><span><ShieldCheck size={13}/>Made for everyday journeys</span><div className="route-animation" aria-hidden="true"><BusFront size={17}/></div></div><div className="hero-coordinate">TIRUPATI → CHITTOOR<span>ANDHRA PRADESH, INDIA</span></div></div></section>
+ <main className="home-content"><section className="home-search"><div className="section-heading"><span className="section-number">01</span><h2>Where are you headed?</h2><p>A small decision. A smoother day.</p></div><JourneySearch/><DemoNotice/></section>
+ <section className="home-selections"><div className="selection-grid"><article className="selection-item"><div className="selection-top"><BusFront size={24}/><span>02 / YOUR OPTIONS</span></div><h3>Find your best bus.</h3><p>All arrivals in the next hour. One thoughtful recommendation for your journey.</p><Button asChild variant="link"><Link to="/buses">Explore available buses <ArrowRight/></Link></Button></article><article className="selection-item"><div className="selection-top"><Radio size={24}/><span>03 / STAY INFORMED</span></div><h3>No more guesswork.</h3><p>Delays, crowding and route changes. Know what to expect before you leave.</p><Button asChild variant="link"><Link to="/status">View transport status <ArrowRight/></Link></Button></article><article className="selection-item"><div className="selection-top"><MessageSquare size={24}/><span>04 / TRAVEL TOGETHER</span></div><h3>Your update matters.</h3><p>A little information from your bus can make someone else’s journey better.</p><Button asChild variant="link"><Link to="/report">Share a passenger report <ArrowRight/></Link></Button></article></div></section></main></>;
 }
