@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, locations, type Bus } from '@/lib/transport';
+import { initialBuses, availableBuses, recommend, applyReport, defaultFilters, locations, journeyFromSearch, type Bus } from '@/lib/transport';
 const base = initialBuses[0];
 if (!base) throw new Error('Demo bus fixture is required');
 describe('MOVIT transport rules', () => {
@@ -48,9 +48,18 @@ describe('MOVIT transport rules', () => {
  it('penalizes route changes when arrival conditions are equal', () => {
   expect(recommend([{...base,id:'changed',route:'Route changed'},{...base,id:'normal'}])?.id).toBe('normal');
   });
- it('offers Pileru and Chandragiri as journey stops', () => {
+ it('offers Pileru, Chandragiri and Rangampeta as journey stops', () => {
   expect(locations).toContain('Pileru');
   expect(locations).toContain('Chandragiri');
+  expect(locations).toContain('Rangampeta');
   expect(new Set(locations).size).toBe(locations.length);
+ });
+ it('honours a Rangampeta journey carried in the address bar', () => {
+  expect(journeyFromSearch({ from: 'Rangampeta', to: 'Tirupati' })).toEqual({ from: 'Rangampeta', to: 'Tirupati' });
+ });
+ it('ignores journey params that are unknown, missing or identical', () => {
+  expect(journeyFromSearch({ from: 'Nowhere', to: 'Tirupati' })).toBeNull();
+  expect(journeyFromSearch({ from: 'Rangampeta' })).toBeNull();
+  expect(journeyFromSearch({ from: 'Rangampeta', to: 'Rangampeta' })).toBeNull();
  });
 });
