@@ -7,7 +7,7 @@ import { pageHead } from '@/lib/page-head';
 import { PageTitle, DemoNotice } from '@/components/movit-shell';
 import { BusCard } from '@/components/bus-card';
 import { Button } from '@/components/ui/button';
-export const Route = createFileRoute('/buses')({ validateSearch: (search: Record<string, unknown>): { from?: string; to?: string } => ({ from: typeof search['from'] === 'string' ? search['from'] : undefined, to: typeof search['to'] === 'string' ? search['to'] : undefined }), head: () => pageHead('Find a Bus', 'Compare every simulated bus arriving within 60 minutes and find the best overall journey with MOVIT.'), component: BusesPage });
+export const Route = createFileRoute('/buses')({ validateSearch: (search: Record<string, unknown>): { from?: string; to?: string } => { const from = typeof search['from'] === 'string' ? search['from'] : undefined; const to = typeof search['to'] === 'string' ? search['to'] : undefined; return { ...(from ? { from } : {}), ...(to ? { to } : {}) }; }, head: () => pageHead('Find a Bus', 'Compare every simulated bus arriving within 60 minutes and find the best overall journey with MOVIT.'), component: BusesPage });
 function BusesPage() {
  const { buses, from: currentFrom, to: currentTo, setJourney } = useTransport();
  const search = Route.useSearch();
