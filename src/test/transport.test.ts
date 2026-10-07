@@ -48,14 +48,19 @@ describe('MOVIT transport rules', () => {
  it('penalizes route changes when arrival conditions are equal', () => {
   expect(recommend([{...base,id:'changed',route:'Route changed'},{...base,id:'normal'}])?.id).toBe('normal');
   });
- it('offers Pileru, Chandragiri and Rangampeta as journey stops', () => {
+ it('offers Pileru, Chandragiri, Rangampeta, Nellore and Kalahasthi as journey stops', () => {
   expect(locations).toContain('Pileru');
   expect(locations).toContain('Chandragiri');
   expect(locations).toContain('Rangampeta');
+  expect(locations).toContain('Nellore');
+  expect(locations).toContain('Kalahasthi');
   expect(new Set(locations).size).toBe(locations.length);
  });
  it('honours a Rangampeta journey carried in the address bar', () => {
   expect(journeyFromSearch({ from: 'Rangampeta', to: 'Tirupati' })).toEqual({ from: 'Rangampeta', to: 'Tirupati' });
+ });
+ it('honours a Kalahasthi to Nellore journey carried in the address bar', () => {
+  expect(journeyFromSearch({ from: 'Kalahasthi', to: 'Nellore' })).toEqual({ from: 'Kalahasthi', to: 'Nellore' });
  });
  it('ignores journey params that are unknown, missing or identical', () => {
   expect(journeyFromSearch({ from: 'Nowhere', to: 'Tirupati' })).toBeNull();
