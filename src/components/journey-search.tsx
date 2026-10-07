@@ -18,9 +18,9 @@ export function JourneySearch() {
   if (pickedFrom === pickedTo) { setError('Choose a different destination Bus Stop.'); return; }
   setFrom(pickedFrom); setTo(pickedTo);
   transport.setJourney(pickedFrom, pickedTo);
-  navigate({ to: '/buses' });
+  navigate({ to: '/buses', search: { from: pickedFrom, to: pickedTo } });
  }
- return <form className="journey-form" onSubmit={submit}>
+ return <form className="journey-form" action="/buses" method="get" onSubmit={submit}>
   <div className="journey-fields"><label className="journey-field"><span><MapPin size={15}/>FROM · BUS STOP</span><select name="from" aria-label="From Bus Stop" value={from} onChange={e => { setFrom(e.target.value); setError(''); }}>{locations.map(place => <option key={place}>{place}</option>)}</select></label>
   <Button type="button" variant="outline" size="icon" className="swap-button" aria-label="Swap Bus Stops" title="Swap Bus Stops" onClick={() => { setFrom(to); setTo(from); setError(''); }}><ArrowRightLeft/></Button>
   <label className="journey-field"><span><MapPin size={15}/>TO · BUS STOP</span><select name="to" aria-label="To Bus Stop" value={to} onChange={e => { setTo(e.target.value); setError(''); }}>{locations.map(place => <option key={place}>{place}</option>)}</select></label>

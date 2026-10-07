@@ -1,4 +1,10 @@
 export const locations = ['Tirupati', 'Chittoor', 'Renigunta', 'Chandragiri', 'Pileru', 'Rangampeta'] as const;
+export function journeyFromSearch(search: Record<string, unknown>) {
+  const known = (value: unknown) => typeof value === 'string' && (locations as readonly string[]).includes(value);
+  const from = known(search.from) ? String(search.from) : '';
+  const to = known(search.to) ? String(search.to) : '';
+  return from && to && from !== to ? { from, to } : null;
+}
 export type Crowd = 'Low' | 'Medium' | 'High';
 export type Bus = { id: string; registration: string; service: string; operator: 'Government' | 'Private'; pass: boolean; eta: number; delay: number; crowd: Crowd; route: 'Normal' | 'Route changed'; breakdown: boolean; updatedAt: number; reported: boolean; comment?: string };
 export const initialBuses: Bus[] = [
