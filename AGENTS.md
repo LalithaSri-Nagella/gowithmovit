@@ -14,3 +14,4 @@
 - Give journey, bus results, transport status, passenger report and about content separate TanStack routes; spacious screens preserve navigation and independent metadata.
 - Define all visual roles and motion in the global design system; feature controls use the shared Button component.
 - Treat service and fare categories as explicit data filters, never as automatic ranking advantages; travel conditions determine the recommendation.
+- Carry the chosen journey in the bus screen's URL search params and read the search form's own fields at submit time, so a stop picked before the page is interactive still reaches the bus screen.
