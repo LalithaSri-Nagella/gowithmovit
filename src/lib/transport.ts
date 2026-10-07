@@ -1,8 +1,8 @@
 export const locations = ['Tirupati', 'Chittoor', 'Renigunta', 'Chandragiri', 'Pileru', 'Rangampeta'] as const;
 export function journeyFromSearch(search: Record<string, unknown>) {
   const known = (value: unknown) => typeof value === 'string' && (locations as readonly string[]).includes(value);
-  const from = known(search.from) ? String(search.from) : '';
-  const to = known(search.to) ? String(search.to) : '';
+  const from = known(search['from']) ? String(search['from']) : '';
+  const to = known(search['to']) ? String(search['to']) : '';
   return from && to && from !== to ? { from, to } : null;
 }
 export type Crowd = 'Low' | 'Medium' | 'High';
